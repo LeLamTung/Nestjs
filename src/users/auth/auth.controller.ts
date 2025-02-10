@@ -1,15 +1,20 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Body, Controller, Get, Post, Redirect, Render } from '@nestjs/common';
 import { RegisterUserDto } from 'src/dto/register.dto';
+import { UsersService } from '../users.service';
 
 @Controller('auth')
 export class AuthController {
-    @Get('/register')
-    @Render('auth/register)
-    register(){
-        return{}
+    constructor(private readonly userService: UsersService) {}
+
+    @Get("register")
+    @Render('auth/register')
+    showFormregister() {
+        return {};
     }
-    @Post("Register")
-    register(@Body() RegisterUserDto;RegisterUserDto) {
-    console.log(RegisterUserDto.name);
-}
+
+    @Post("register")
+    @Redirect("/auth/register")
+    register(@Body() registerUserDto: RegisterUserDto)  {
+        this.userService.createUser(registerUserDto);
+    }
 }

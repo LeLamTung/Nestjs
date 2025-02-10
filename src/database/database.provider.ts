@@ -16,6 +16,8 @@ export const databaseProviders = [
             __dirname + '/../**/*.entity{.ts,.js}',
         ],
         synchronize: true,
+        logging: true,
+        dropSchema: false, // drop schema before each test run
       });
 
       return dataSource.initialize();
